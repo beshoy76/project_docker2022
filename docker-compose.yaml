@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+
+  
+  db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    container_name: mysqldb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: test123
+    volumes:
+      - mysql-data:/var/lib/mysql
+    
+  web:
+    build: .
+    container_name: my-app
+    depends_on:
+      - db
+    ports:
+      - 9595:9595
+    stdin_open: true
+    tty: true
+
+volumes:
+  mysql-data:
+
+  
